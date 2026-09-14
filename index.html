@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSAT · Talk a Bit</title>
+<meta name="description" content="Pesquisa de satisfação do Talk a Bit — conte pra gente como foi sua experiência no evento." />
+<link rel="icon" type="image/png" href="assets/logo-badge.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="page">
+
+    <header class="hero">
+      <p class="hero__wordmark">
+        <img src="assets/talkabit-lockup-purple.png" alt="Talk a Bit" width="920" height="684" />
+      </p>
+      <h1 class="hero__title">Como foi o seu<br />Talk a Bit?</h1>
+      <p class="hero__lede">
+        Sua resposta é o que decide o que muda na próxima edição. Leva menos de
+        3 minutos. Obrigado por fazer parte, nos vemos no próximo Talk a Bit!
+      </p>
+    </header>
+
+    <form id="csat-form" class="card" novalidate>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">01</span> Pra começar</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar" />
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="linkedin">LinkedIn</label>
+          <input id="linkedin" name="linkedin" type="text" autocomplete="url" placeholder="linkedin.com/in/seu-perfil" />
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">02</span> Recomendação</p>
+        <label class="question" for="nps">De 0 a 10, o quanto você recomendaria o Talk a Bit para um colega?</label>
+
+        <div class="nps">
+          <input type="range" id="nps" min="0" max="10" step="1" value="5" />
+          <div class="nps__readout">
+            <span class="nps__value" id="nps-value">5</span>
+          </div>
+        </div>
+        <div class="scale-caption">
+          <span>Nada provável</span>
+          <span>Certamente eu recomendaria</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">03</span> Experiência geral</p>
+        <label class="question" for="exp-geral">De 1 a 5, como você avalia sua experiência geral no evento?</label>
+        <div class="rating" data-rating>
+          <input type="range" id="exp-geral" min="1" max="5" step="1" value="3" />
+          <div class="rating__face" id="exp-geral-face"></div>
+        </div>
+        <div class="scale-caption"><span>Muito ruim</span><span>Muito boa</span></div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">04</span> Conteúdo</p>
+        <label class="question" for="qualidade-conteudo">De 1 a 5, como você avalia a relevância/qualidade do conteúdo das talks?</label>
+        <div class="rating" data-rating>
+          <input type="range" id="qualidade-conteudo" min="1" max="5" step="1" value="3" />
+          <div class="rating__face" id="qualidade-conteudo-face"></div>
+        </div>
+        <div class="scale-caption"><span>Pouco relevante</span><span>Muito relevante</span></div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">05</span> Hackathon</p>
+        <label class="question">Você participou do hackathon?</label>
+        <div class="segmented" role="radiogroup" aria-label="Participação no hackathon" id="hackathon-group">
+          <button type="button" class="segmented__opt" data-value="Não">Não</button>
+          <button type="button" class="segmented__opt" data-value="Acaso">Acaso</button>
+          <button type="button" class="segmented__opt" data-value="Sieg">Sieg</button>
+        </div>
+
+        <div class="conditional" id="hackathon-follow" hidden>
+          <div class="conditional__block" id="hackathon-follow-acaso" hidden>
+            <label class="question" for="exp-hackathon-acaso">De 1 a 5, como você avalia sua experiência no hackathon <strong>Acaso</strong> (desafio proposto, tempo, mentoria, premiação)?</label>
+            <div class="rating" data-rating>
+              <input type="range" id="exp-hackathon-acaso" min="1" max="5" step="1" value="3" />
+              <div class="rating__face" id="exp-hackathon-acaso-face"></div>
+            </div>
+            <div class="scale-caption"><span>Muito ruim</span><span>Muito boa</span></div>
+          </div>
+
+          <div class="conditional__block" id="hackathon-follow-sieg" hidden>
+            <label class="question" for="exp-hackathon-sieg">De 1 a 5, como você avalia sua experiência no hackathon <strong>Sieg</strong> (desafio proposto, tempo, mentoria, premiação)?</label>
+            <div class="rating" data-rating>
+              <input type="range" id="exp-hackathon-sieg" min="1" max="5" step="1" value="3" />
+              <div class="rating__face" id="exp-hackathon-sieg-face"></div>
+            </div>
+            <div class="scale-caption"><span>Muito ruim</span><span>Muito boa</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">06</span> Estrutura</p>
+        <label class="question" for="estrutura">De 1 a 5, como você avalia a estrutura/organização do evento (local, credenciamento, wifi, som, conforto)?</label>
+        <div class="rating" data-rating>
+          <input type="range" id="estrutura" min="1" max="5" step="1" value="3" />
+          <div class="rating__face" id="estrutura-face"></div>
+        </div>
+        <div class="scale-caption"><span>Muito ruim</span><span>Muito boa</span></div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">07</span> O momento</p>
+        <label class="question">Qual talk ou momento mais te marcou?</label>
+        <div class="chips chips--single" id="talk-options" role="radiogroup" aria-label="Talk ou momento mais marcante"></div>
+
+        <div class="conditional" id="talk-other-wrap" hidden>
+          <label class="question" for="talk-other">Qual foi?</label>
+          <textarea id="talk-other" rows="2" placeholder="Conta pra gente..."></textarea>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">08</span> Marcas parceiras</p>
+
+        <label class="question">Quais marcas parceiras você já conhecia antes do evento?</label>
+        <div class="chips" id="chips-conhecidas" role="group" aria-label="Marcas já conhecidas"></div>
+
+        <label class="question" style="margin-top: 28px;">Teve alguma marca parceira que você não conhecia e que despertou seu interesse depois do evento? Qual?</label>
+        <div class="chips" id="chips-interesse" role="group" aria-label="Marcas que despertaram interesse"></div>
+      </section>
+
+      <section class="section">
+        <p class="section__label"><span class="section__index">09</span> Pra fechar</p>
+        <label class="question" for="sugestoes">Deixe aqui seus elogios, críticas ou sugestões para a próxima edição do Talk a Bit.</label>
+        <textarea id="sugestoes" rows="4" placeholder="Fica à vontade — elogio, crítica ou ideia, tudo ajuda."></textarea>
+      </section>
+
+      <p class="form-error" id="form-error" hidden></p>
+
+      <button type="submit" class="submit" id="submit-btn">
+        <span id="submit-label">Enviar respostas</span>
+      </button>
+    </form>
+
+    <section class="card success" id="success" hidden>
+      <div class="success__badge">✓</div>
+      <h2>Valeu por participar!</h2>
+      <p>Sua resposta já chegou até a gente. Te esperamos na próxima edição do Talk a Bit.</p>
+    </section>
+
+    <footer class="footer">
+      <span class="footer__mono">talk_a_bit</span> · pesquisa de satisfação do evento
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="brands.js"></script>
+  <script src="speakers.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

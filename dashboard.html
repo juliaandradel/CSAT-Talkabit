@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard · Talk a Bit</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" href="assets/logo-badge.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+  <div class="glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="page page--wide">
+
+    <header class="dash-header">
+      <div>
+        <p class="eyebrow">&#47;&#47; painel_interno</p>
+        <h1 class="dash-header__title">Dashboard do Talk a Bit</h1>
+      </div>
+      <div class="dash-header__actions">
+        <button type="button" class="btn-ghost" id="export-btn" hidden>Exportar CSV</button>
+        <button type="button" class="btn-ghost" id="logout-btn" hidden>Sair</button>
+      </div>
+    </header>
+
+    <!-- ============ LOGIN GATE ============ -->
+    <section class="card login-card" id="login-card">
+      <p class="section__label"><span class="section__index">&#128274;</span> Acesso restrito</p>
+      <p class="question" style="margin-bottom: 8px;">Entre com o login criado no Supabase (Authentication → Users) pra ver as respostas.</p>
+      <form id="login-form" class="login-form">
+        <div class="field">
+          <label for="login-email">E-mail</label>
+          <input id="login-email" type="email" required autocomplete="username" placeholder="voce@talkabit.com.br" />
+        </div>
+        <div class="field">
+          <label for="login-password">Senha</label>
+          <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••" />
+        </div>
+        <p class="form-error" id="login-error" hidden></p>
+        <button type="submit" class="submit" id="login-submit">
+          <span id="login-submit-label">Entrar</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- ============ DASHBOARD ============ -->
+    <div id="dashboard" hidden>
+
+      <p class="dash-status" id="dash-status">Carregando respostas…</p>
+
+      <!-- KPIs -->
+      <section class="card">
+        <div class="section">
+          <p class="section__label"><span class="section__index">01</span> Visão geral</p>
+          <div class="kpi-grid" id="kpi-grid"></div>
+        </div>
+
+        <div class="section">
+          <p class="section__label"><span class="section__index">02</span> Recomendação (NPS)</p>
+          <div class="nps-report" id="nps-report"></div>
+        </div>
+
+        <div class="section">
+          <p class="section__label"><span class="section__index">03</span> Avaliações médias</p>
+          <div class="meter-list" id="meter-list"></div>
+        </div>
+      </section>
+
+      <!-- Hackathon -->
+      <section class="card">
+        <div class="section">
+          <p class="section__label"><span class="section__index">04</span> Hackathon</p>
+          <p class="dash-subtitle">Participação</p>
+          <div class="bar-list" id="hackathon-participation"></div>
+          <p class="dash-subtitle" style="margin-top: 22px;">Experiência por trilha</p>
+          <div class="meter-list" id="hackathon-experience"></div>
+        </div>
+      </section>
+
+      <!-- Marcas parceiras — o que leva pro parceiro -->
+      <section class="card">
+        <div class="section">
+          <p class="section__label"><span class="section__index">05</span> Relatório por marca parceira</p>
+          <p class="dash-subtitle">Base pra levar pro patrocinador: quem já conhecia a marca antes do evento vs. quem descobriu/se interessou depois.</p>
+          <div class="brand-table" id="brand-table"></div>
+        </div>
+      </section>
+
+      <!-- Talk/momento mais marcante -->
+      <section class="card">
+        <div class="section">
+          <p class="section__label"><span class="section__index">06</span> Talks e momentos mais marcantes</p>
+          <div class="bar-list" id="talk-ranking"></div>
+          <p class="dash-subtitle" style="margin-top: 16px;">Quando alguém escolheu "Outro", o texto livre aparece aqui:</p>
+          <div class="text-list" id="talks-list"></div>
+        </div>
+        <div class="section">
+          <p class="section__label"><span class="section__index">07</span> Elogios, críticas e sugestões</p>
+          <div class="text-list" id="suggestions-list"></div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="brands.js"></script>
+  <script src="speakers.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
