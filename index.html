@@ -32,25 +32,7 @@
     <form id="csat-form" class="card" novalidate>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">01</span> Pra começar</p>
-        <div class="field-row">
-          <div class="field">
-            <label for="nome">Nome</label>
-            <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar" />
-          </div>
-          <div class="field">
-            <label for="email">E-mail</label>
-            <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" />
-          </div>
-        </div>
-        <div class="field">
-          <label for="linkedin">LinkedIn</label>
-          <input id="linkedin" name="linkedin" type="text" autocomplete="url" placeholder="linkedin.com/in/seu-perfil" />
-        </div>
-      </section>
-
-      <section class="section">
-        <p class="section__label"><span class="section__index">02</span> Recomendação</p>
+        <p class="section__label"><span class="section__index">01</span> Recomendação</p>
         <label class="question" for="nps">De 0 a 10, o quanto você recomendaria o Talk a Bit para um colega?</label>
 
         <div class="nps">
@@ -66,7 +48,7 @@
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">03</span> Experiência geral</p>
+        <p class="section__label"><span class="section__index">02</span> Experiência geral</p>
         <label class="question" for="exp-geral">De 1 a 5, como você avalia sua experiência geral no evento?</label>
         <div class="rating" data-rating>
           <input type="range" id="exp-geral" min="1" max="5" step="1" value="3" />
@@ -76,7 +58,7 @@
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">04</span> Conteúdo</p>
+        <p class="section__label"><span class="section__index">03</span> Conteúdo</p>
         <label class="question" for="qualidade-conteudo">De 1 a 5, como você avalia a relevância/qualidade do conteúdo das talks?</label>
         <div class="rating" data-rating>
           <input type="range" id="qualidade-conteudo" min="1" max="5" step="1" value="3" />
@@ -86,7 +68,7 @@
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">05</span> Hackathon</p>
+        <p class="section__label"><span class="section__index">04</span> Hackathon</p>
         <label class="question">Você participou do hackathon?</label>
         <div class="segmented" role="radiogroup" aria-label="Participação no hackathon" id="hackathon-group">
           <button type="button" class="segmented__opt" data-value="Não">Não</button>
@@ -116,7 +98,7 @@
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">06</span> Estrutura</p>
+        <p class="section__label"><span class="section__index">05</span> Estrutura</p>
         <label class="question" for="estrutura">De 1 a 5, como você avalia a estrutura/organização do evento (local, credenciamento, wifi, som, conforto)?</label>
         <div class="rating" data-rating>
           <input type="range" id="estrutura" min="1" max="5" step="1" value="3" />
@@ -126,18 +108,13 @@
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">07</span> O momento</p>
+        <p class="section__label"><span class="section__index">06</span> O momento</p>
         <label class="question">Qual talk ou momento mais te marcou?</label>
         <div class="chips chips--single" id="talk-options" role="radiogroup" aria-label="Talk ou momento mais marcante"></div>
-
-        <div class="conditional" id="talk-other-wrap" hidden>
-          <label class="question" for="talk-other">Qual foi?</label>
-          <textarea id="talk-other" rows="2" placeholder="Conta pra gente..."></textarea>
-        </div>
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">08</span> Marcas parceiras</p>
+        <p class="section__label"><span class="section__index">07</span> Marcas parceiras</p>
 
         <label class="question">Quais marcas parceiras você já conhecia antes do evento?</label>
         <div class="chips" id="chips-conhecidas" role="group" aria-label="Marcas já conhecidas"></div>
@@ -147,9 +124,9 @@
       </section>
 
       <section class="section">
-        <p class="section__label"><span class="section__index">09</span> Pra fechar</p>
+        <p class="section__label"><span class="section__index">08</span> Pra fechar</p>
         <label class="question" for="sugestoes">Deixe aqui seus elogios, críticas ou sugestões para a próxima edição do Talk a Bit.</label>
-        <textarea id="sugestoes" rows="4" placeholder="Fica à vontade — elogio, crítica ou ideia, tudo ajuda."></textarea>
+        <textarea id="sugestoes" rows="4" placeholder="Pode escrever com suas palavras elogios, críticas ou ideias para a próxima edição."></textarea>
       </section>
 
       <p class="form-error" id="form-error" hidden></p>
@@ -164,10 +141,6 @@
       <h2>Valeu por participar!</h2>
       <p>Sua resposta já chegou até a gente. Te esperamos na próxima edição do Talk a Bit.</p>
     </section>
-
-    <footer class="footer">
-      <span class="footer__mono">talk_a_bit</span> · pesquisa de satisfação do evento
-    </footer>
 
   </main>
 

@@ -41,6 +41,8 @@
     return `rgb(${r}, ${g}, ${b})`;
   }
 
+  const touchedSliders = new Set();
+
   function wireRating(sliderId, faceId) {
     const slider = document.getElementById(sliderId);
     const face = document.getElementById(faceId);
@@ -52,7 +54,11 @@
       face.style.color = faceColor(v);
     }
 
-    slider.addEventListener("input", render);
+    slider.addEventListener("input", () => {
+      touchedSliders.add(sliderId);
+      clearError();
+      render();
+    });
     render();
   }
 
@@ -72,7 +78,11 @@
       valueEl.textContent = slider.value;
     }
 
-    slider.addEventListener("input", render);
+    slider.addEventListener("input", () => {
+      touchedSliders.add("nps");
+      clearError();
+      render();
+    });
     render();
   })();
 
@@ -110,22 +120,15 @@
 
   /* ---------------------------------------------------------
      Talk/momento mais marcante — seleção única entre os palestrantes
-     confirmados, com "Outro" abrindo um campo de texto livre.
+     confirmados.
      --------------------------------------------------------- */
   let talkValue = null;
 
-  function getTalkOther() {
-    const el = document.getElementById("talk-other");
-    return el ? el.value.trim() : "";
-  }
-
   (function wireTalkOptions() {
     const container = document.getElementById("talk-options");
-    const otherWrap = document.getElementById("talk-other-wrap");
     if (!container) return;
 
-    const moments = window.TALK_MOMENTS || [];
-    const options = [...moments, "Outro"];
+    const options = window.TALK_MOMENTS || [];
 
     options.forEach((label) => {
       const chip = document.createElement("button");
@@ -141,11 +144,9 @@
         if (already) {
           // Clicar de novo no já selecionado limpa a escolha.
           talkValue = null;
-          otherWrap.hidden = true;
         } else {
           chip.setAttribute("aria-checked", "true");
           talkValue = label;
-          otherWrap.hidden = label !== "Outro";
         }
         clearError();
       });
@@ -191,6 +192,7 @@
           if (pressed) state.delete(label);
           else state.add(label);
         }
+        clearError();
       });
       el.appendChild(chip);
     });
@@ -198,7 +200,7 @@
     return () => Array.from(state);
   }
 
-  const getConhecidas = buildChips("chips-conhecidas", PARTNER_BRANDS, { withNone: false });
+  const getConhecidas = buildChips("chips-conhecidas", PARTNER_BRANDS, { withNone: true });
   const getInteresse = buildChips("chips-interesse", PARTNER_BRANDS, { withNone: true });
 
   /* ---------------------------------------------------------
@@ -210,10 +212,10 @@
   const submitLabel = document.getElementById("submit-label");
   const successEl = document.getElementById("success");
 
-  function showError(message) {
+  function showError(message, el) {
     errorEl.textContent = message;
     errorEl.hidden = false;
-    errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    (el || errorEl).scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   function clearError() {
@@ -236,15 +238,66 @@
     event.preventDefault();
     clearError();
 
-    if (!hackathonValue) {
-      showError("Falta responder se você participou do hackathon.");
+    const validations = [
+      {
+        ok: touchedSliders.has("nps"),
+        message: "Falta responder o quanto você recomendaria o Talk a Bit.",
+        el: document.getElementById("nps"),
+      },
+      {
+        ok: touchedSliders.has("exp-geral"),
+        message: "Falta avaliar sua experiência geral no evento.",
+        el: document.getElementById("exp-geral"),
+      },
+      {
+        ok: touchedSliders.has("qualidade-conteudo"),
+        message: "Falta avaliar a relevância/qualidade do conteúdo das talks.",
+        el: document.getElementById("qualidade-conteudo"),
+      },
+      {
+        ok: !!hackathonValue,
+        message: "Falta responder se você participou do hackathon.",
+        el: document.getElementById("hackathon-group"),
+      },
+      {
+        ok: hackathonValue !== "Acaso" || touchedSliders.has("exp-hackathon-acaso"),
+        message: "Falta avaliar sua experiência no hackathon Acaso.",
+        el: document.getElementById("exp-hackathon-acaso"),
+      },
+      {
+        ok: hackathonValue !== "Sieg" || touchedSliders.has("exp-hackathon-sieg"),
+        message: "Falta avaliar sua experiência no hackathon Sieg.",
+        el: document.getElementById("exp-hackathon-sieg"),
+      },
+      {
+        ok: touchedSliders.has("estrutura"),
+        message: "Falta avaliar a estrutura/organização do evento.",
+        el: document.getElementById("estrutura"),
+      },
+      {
+        ok: !!talkValue,
+        message: "Falta escolher qual talk ou momento mais te marcou.",
+        el: document.getElementById("talk-options"),
+      },
+      {
+        ok: getConhecidas().length > 0,
+        message: 'Falta marcar as marcas parceiras que você já conhecia (ou "Nenhuma").',
+        el: document.getElementById("chips-conhecidas"),
+      },
+      {
+        ok: getInteresse().length > 0,
+        message: 'Falta marcar se alguma marca despertou seu interesse (ou "Nenhuma").',
+        el: document.getElementById("chips-interesse"),
+      },
+    ];
+
+    const firstFail = validations.find((v) => !v.ok);
+    if (firstFail) {
+      showError(firstFail.message, firstFail.el);
       return;
     }
 
     const payload = {
-      nome: document.getElementById("nome").value.trim() || null,
-      email: document.getElementById("email").value.trim() || null,
-      linkedin: document.getElementById("linkedin").value.trim() || null,
       nps_recomendacao: Number(document.getElementById("nps").value),
       exp_geral: Number(document.getElementById("exp-geral").value),
       qualidade_conteudo: Number(document.getElementById("qualidade-conteudo").value),
@@ -258,7 +311,7 @@
           ? Number(document.getElementById("exp-hackathon-sieg").value)
           : null,
       estrutura_organizacao: Number(document.getElementById("estrutura").value),
-      talk_marcante: talkValue === "Outro" ? getTalkOther() || null : talkValue,
+      talk_marcante: talkValue,
       marcas_conhecidas: getConhecidas(),
       marcas_interesse: getInteresse(),
       sugestoes: document.getElementById("sugestoes").value.trim() || null,

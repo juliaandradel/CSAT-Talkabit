@@ -2,7 +2,7 @@
 // (chips de "marca conhecida" / "marca que despertou interesse") e no
 // dashboard (relatório por marca). Editar só aqui.
 window.PARTNER_BRANDS = [
-  "Citi",
+  "CITi",
   "Acaso",
   "SIEG",
   "Loomi",
