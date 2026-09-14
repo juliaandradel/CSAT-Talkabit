@@ -11,5 +11,5 @@
 //    permitem INSERT, nunca leitura, para quem preenche o forms)
 // ---------------------------------------------------------------
 
-window.SUPABASE_URL = "COLE_AQUI_A_PROJECT_URL";
-window.SUPABASE_ANON_KEY = "COLE_AQUI_A_ANON_PUBLIC_KEY";
+window.SUPABASE_URL = "https://yatwtedbvzphwkxgbhft.supabase.co";
+window.SUPABASE_ANON_KEY = "sb_publishable_NsoGfiGOujLSOIZuOR9CVg_C2wIBmCq";
